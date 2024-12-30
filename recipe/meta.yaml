@@ -1,3 +1,4 @@
+{% set python_min = '3.10' %}
 {% set name = "txl-notebook-editor" %}
 {% set version = "0.2.15" %}
 
@@ -11,16 +12,16 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
 
 requirements:
   host:
-    - python >=3.10
+    - python {{ python_min }}
     - pip
     - hatchling
   run:
-    - python >=3.10
+    - python >={{ python_min }}
     - txl >=0.2.18,<0.3.0
     - pycrdt >=0.10.9,<0.11.0
     - jupyter_ydoc >=3.0.2,<4.0.0
@@ -32,6 +33,8 @@ test:
   #   - pip
   # commands:
   #   - pip check
+  requires:
+    - python {{ python_min }}
   imports:
     - txl_notebook_editor
 
